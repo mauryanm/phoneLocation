@@ -67,10 +67,11 @@ h3 {
     background-color: rgba(0, 0, 0, 0.65);
     color: #fff;
 }
+#map_canvas{height:100%;}
 	</style>
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
     <script>
-	
+var addr='';	
 	//check for Geolocation support
 if (navigator.geolocation) {
   console.log('Geolocation is supported!');
@@ -129,14 +130,17 @@ window.onload = function() {
   
   navigator.geolocation.watchPosition(function(position) {
 	  var latlongadd=new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+	  initialize(position.coords.latitude, position.coords.longitude);
 	  var geocoder = geocoder = new google.maps.Geocoder();
 	geocoder.geocode({ 'latLng': latlongadd }, function (results, status) {
 	if (status == google.maps.GeocoderStatus.OK) {
 		if (results[1]) {
-			document.getElementById('txtSource').innerHTML=results[0].formatted_address;
+			addr=results[0].formatted_address;
+			document.getElementById('txtSource').innerHTML=addr;
 		}
 	}
 	});
+	console.log(addr);
   document.getElementById('currentLat').innerHTML = position.coords.latitude;
   document.getElementById('currentLon').innerHTML = position.coords.longitude;
   document.getElementById('distance').innerHTML =
@@ -161,6 +165,23 @@ Number.prototype.toRad = function() {
   return this * Math.PI / 180;
 }
 };
+
+ 
+ function initialize(latc,lngc) {
+  var myLatlng = new google.maps.LatLng(latc, lngc);
+  var mapOptions = {
+    zoom: 12,
+    center: myLatlng
+  }
+  var map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+
+  var marker = new google.maps.Marker({
+      position: myLatlng,
+      map: map,
+      title: 'You are here'
+  });
+}    
+
 	</script>
 </head>
 <body>
@@ -174,7 +195,7 @@ Number.prototype.toRad = function() {
   	<h3><span id="txtSource">???</span></h3>
     <h2>Distance from starting location:</h2>
     <h3><span id="distance">0</span> km</h3>
-  
+ <div id="map_canvas"></div> 
 </div>
 </body>
 </html>
