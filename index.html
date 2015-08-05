@@ -118,6 +118,15 @@ window.onload = function() {
   });
   
   navigator.geolocation.watchPosition(function(position) {
+	  var latlongadd=new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+	  var geocoder = geocoder = new google.maps.Geocoder();
+	geocoder.geocode({ 'latLng': latlongadd }, function (results, status) {
+	if (status == google.maps.GeocoderStatus.OK) {
+		if (results[1]) {
+			document.getElementById('txtSource').innerHTML=results[0].formatted_address;
+		}
+	}
+	});
   document.getElementById('currentLat').innerHTML = position.coords.latitude;
   document.getElementById('currentLon').innerHTML = position.coords.longitude;
   document.getElementById('distance').innerHTML =
@@ -152,7 +161,7 @@ Number.prototype.toRad = function() {
   
     <h2>Current Location (lat, lon):</h2>
     <h3><span id="currentLat">???</span>°, <span id="currentLon">???</span>°</h3>
-  
+  	<h3><span id="txtSource">???</span></h3>
     <h2>Distance from starting location:</h2>
     <h3><span id="distance">0</span> km</h3>
   
