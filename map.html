@@ -21,7 +21,10 @@ h3 {margin-bottom: 10px; padding: 2px;background-color: rgba(0, 0, 0, 0.65);colo
 var addr='';
 var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
-var latlongaddstart;	
+var latlongaddstart;
+var marker2;
+var marker;
+var map;	
 	//check for Geolocation support
 if (navigator.geolocation) {
   console.log('Geolocation is supported!');
@@ -111,9 +114,7 @@ Number.prototype.toRad = function() {
   return this * Math.PI / 180;
 }
 };
-var marker2;
-var marker;
-var map;
+
 function initialize(latc,lngc) {
 		
         var latlng = new google.maps.LatLng(latc, lngc);
