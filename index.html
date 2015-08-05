@@ -85,6 +85,7 @@ window.onload = function() {
     startPos = position;
 	
 	var latlongaddstart=new google.maps.LatLng(startPos.coords.latitude, startPos.coords.longitude);
+	initialize(startPos.coords.latitude, startPos.coords.longitude);
 	  var geocoder = geocoder = new google.maps.Geocoder();
 	geocoder.geocode({ 'latLng': latlongaddstart }, function (results, status) {
 	if (status == google.maps.GeocoderStatus.OK) {
@@ -130,7 +131,8 @@ window.onload = function() {
   
   navigator.geolocation.watchPosition(function(position) {
 	  var latlongadd=new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-	  initialize(position.coords.latitude, position.coords.longitude);
+	  //initialize(position.coords.latitude, position.coords.longitude);
+	  
 	  var geocoder = geocoder = new google.maps.Geocoder();
 	geocoder.geocode({ 'latLng': latlongadd }, function (results, status) {
 	if (status == google.maps.GeocoderStatus.OK) {
@@ -140,6 +142,9 @@ window.onload = function() {
 		}
 	}
 	});
+	
+	SetMarker(position.coords.latitude,position.coords.longitude,addr)
+	
   document.getElementById('currentLat').innerHTML = position.coords.latitude;
   document.getElementById('currentLon').innerHTML = position.coords.longitude;
   document.getElementById('distance').innerHTML =
@@ -165,21 +170,54 @@ Number.prototype.toRad = function() {
 }
 };
 
- 
- function initialize(latc,lngc) {
-  var myLatlng = new google.maps.LatLng(latc, lngc);
-  var mapOptions = {
-    zoom: 12,
-    center: myLatlng
-  }
-  var map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+var marker2;
+var marker;
+var map;
+function initialize(latc,lngc) {
+		
+        var latlng = new google.maps.LatLng(latc, lngc);
 
-  var marker = new google.maps.Marker({
-      position: myLatlng,
+        var myOptions = {
+            zoom: 8,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            streetViewControl: false,
+            mapTypeControl: false,
+        };
+
+        map = new google.maps.Map(document.getElementById("map_canvas"),
+                myOptions);
+				SetMarker(0);
+	marker = new google.maps.Marker({
+      position: latlng,
       map: map,
-      title: 'You are here'
+      title: 'Start position'
   });
-}    
+
+
+    }
+
+function SetMarker(dlat, dlng, daddr) {
+            //Remove previous Marker.
+            if (marker2 != null) {
+                marker2.setMap(null);
+            }
+
+            //Set Marker on Map.
+           // var data = markers[position];
+            var myLatlng = new google.maps.LatLng(dlat, dlng);
+            marker2 = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+				icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+                title: 'current loc'
+            });
+
+            //Create and open InfoWindow.
+            var infoWindow = new google.maps.InfoWindow();
+            infoWindow.setContent("<div style = 'width:200px;min-height:40px'>" + daddr + "</div>");
+            infoWindow.open(map, marker2);
+        };
 
 	</script>
 </head>
