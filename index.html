@@ -3,13 +3,13 @@
     <title></title>
     <style>
 	html { font-size: 76%; }
-
+*{margin:0; padding:0;}
 body{
 	font-family:Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman', serif;
 	color:#444;
 	font-size:16px;
 	line-height:1.5em;
-	padding:1em;
+	/* padding:1em; */
 	margin:auto;
 	background:#F7F7F7;
 }
@@ -37,6 +37,35 @@ dd span { font-weight:bold; }
 
 #warning {
 	width: 350px; margin: 0 auto;
+}
+#tripmeter{text-align:center;/* fallback */
+
+  /* Safari 4-5, Chrome 1-9 */
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#40523F));
+
+  /* Safari 5.1, Chrome 10+ */
+  background: -webkit-linear-gradient(top, #40523F, #fff);
+
+  /* Firefox 3.6+ */
+  background: -moz-linear-gradient(top, #40523F, #fff);
+
+  /* IE 10 */
+  background: -ms-linear-gradient(top, #40523F, #fff);
+
+  /* Opera 11.10+ */
+  background: -o-linear-gradient(top, #40523F, #fff);
+  height:100%;}
+  h2 {
+    margin-bottom: 10px;
+    padding: 2px;
+    color: #032902;
+    background-color: #fff;
+}
+h3 {
+    margin-bottom: 10px;
+    padding: 2px;
+    background-color: rgba(0, 0, 0, 0.65);
+    color: #fff;
 }
 	</style>
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
@@ -117,18 +146,16 @@ Number.prototype.toRad = function() {
 </head>
 <body>
     <div id="tripmeter">
-  <p>
-    Starting Location (lat, lon):<br/>
-    <span id="startLat">???</span>°, <span id="startLon">???</span>°
-  </p>
-  <p>
-    Current Location (lat, lon):<br/>
-    <span id="currentLat">???</span>°, <span id="currentLon">???</span>°
-  </p>
-  <p>
-    Distance from starting location:<br/>
-    <span id="distance">0</span> km
-  </p>
+  
+    <h2>Starting Location (lat, lon):</h2>
+    <h3><span id="startLat">???</span>°, <span id="startLon">???</span>°</h3>
+  
+    <h2>Current Location (lat, lon):</h2>
+    <h3><span id="currentLat">???</span>°, <span id="currentLon">???</span>°</h3>
+  
+    <h2>Distance from starting location:</h2>
+    <h3><span id="distance">0</span> km</h3>
+  
 </div>
 </body>
 </html>
