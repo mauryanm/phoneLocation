@@ -82,6 +82,16 @@ window.onload = function() {
   var startPos;
   navigator.geolocation.getCurrentPosition(function(position) {
     startPos = position;
+	
+	var latlongaddstart=new google.maps.LatLng(startPos.coords.latitude, startPos.coords.longitude);
+	  var geocoder = geocoder = new google.maps.Geocoder();
+	geocoder.geocode({ 'latLng': latlongaddstart }, function (results, status) {
+	if (status == google.maps.GeocoderStatus.OK) {
+		if (results[1]) {
+			document.getElementById('startSource').innerHTML=results[0].formatted_address;
+		}
+	}
+	});
     document.getElementById('startLat').innerHTML = startPos.coords.latitude;
     document.getElementById('startLon').innerHTML = startPos.coords.longitude;
   }, function(error){
@@ -158,7 +168,7 @@ Number.prototype.toRad = function() {
   
     <h2>Starting Location (lat, lon):</h2>
     <h3><span id="startLat">???</span>°, <span id="startLon">???</span>°</h3>
-  
+  	<h3><span id="startSource">???</span></h3>
     <h2>Current Location (lat, lon):</h2>
     <h3><span id="currentLat">???</span>°, <span id="currentLon">???</span>°</h3>
   	<h3><span id="txtSource">???</span></h3>
