@@ -67,7 +67,7 @@ h3 {
     background-color: rgba(0, 0, 0, 0.65);
     color: #fff;
 }
-#map_canvas{height:100%;}
+#map_canvas{height:40%;}
 	</style>
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
     <script>
@@ -140,7 +140,6 @@ window.onload = function() {
 		}
 	}
 	});
-	console.log(addr);
   document.getElementById('currentLat').innerHTML = position.coords.latitude;
   document.getElementById('currentLon').innerHTML = position.coords.longitude;
   document.getElementById('distance').innerHTML =
